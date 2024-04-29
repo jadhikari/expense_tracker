@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="{% static 'myapp/styles.css' %}" rel="stylesheet">
+    <link href="{% static 'myapp/style.css' %}" rel="stylesheet">
+
+</head>
+<body>
+
+    <nav class="shadow-lg">
+        <div class="container flex flex-wrap justify-between items-center mx-auto">
+            <a href="#" class="flex">
+                <img class="h-12 m-4 "  src="{% static 'images/icon.png' %}" alt="Expense_traker">
+                <span class="self-center text-bold">Expense Traker</span>
+            </a>
+        </div>
+    </nav>
+
+   {% block body %}
+
+   {% endblock %}
+</body>
+</html>

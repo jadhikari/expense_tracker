@@ -1,0 +1,89 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+{% load humanize %}
+{% block body %}
+<div>
+    <h2 class="m-10 font-bold ">Add Expense</h2>
+</div>
+    <form action="" method="POST" class=" shadow-lg m-10 rounded-lg" >
+        {% csrf_token %}
+        <div class="form-container px-10 py-10 flex">
+            <div class="mx-10">
+                <div class="mb-5">
+                    <label>Expense Name</label>
+                </div>
+                <div class="border">
+                    {{expense_form.name }}
+                </div>
+            </div>
+
+            <div class="mx-10">
+                <div class="mb-5">
+                    <label>Amount</label>
+                </div>
+                <div class="border">
+                    {{expense_form.amount }}
+                </div>
+            </div>
+
+            <div class="mx-10">
+                <div class="mb-5">
+                    <label>Category</label>
+                </div>
+                <div class="border">
+                    {{expense_form.category }}
+                </div>
+            </div>
+
+            <div class="mx-10 mt-8">
+                <button class="bg-green-500 px-5 py-2 rounded-lg text-bold text-white">Add</button>
+            </div>
+        </div>
+    </form>
+
+    <div>
+        <h2 class="m-10 font-bold ">Expenses</h2>
+    </div>
+    <div class="shadow-lg m-10 rounded-lg">
+        <div class="expense-header flex flex-wrap space-x-40 px-20 py-5">
+            <span>Name</span>
+            <span>Amount</span>
+            <span>Category</span>
+            <span>Date</span>
+            <span>Edit</span>
+            <span>Delete</span>
+        </div>
+    
+        <hr class="m-2">
+        {% for expense in expenses  %}
+            <div class="expense-row flex flex-rap px-20 py-5">
+                <span>{{expense.name}}</span>
+                <span>${{expense.amount|intcomma}}</span>
+                <span>{{expense.category}}</span>
+                <span>{{expense.date}}</span>
+                <span><a href="{% url 'myapp:edit' expense.id %}">
+                    <img class="h-6" src="{% static 'images/edit.png' %}" alt="">
+                </a></span>
+                <span >
+                    <form action="{% url 'myapp:delete' expense.id %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" name="delete">
+                            <img class="h-6" src="{% static 'images/delete.png' %}" alt="">
+                        </button>
+                    </form>
+                </span>
+            </div>
+        {% endfor %}
+
+        <div class="flex">
+            <span class="font-bold text-green-400">
+                Total Expenses : 
+            </span>
+            <span class="font-bold text-green-400">
+                ${{ total_expenses.total_amount }}
+            </span>
+        </div>
+
+    </div>
+
+{% endblock %}
